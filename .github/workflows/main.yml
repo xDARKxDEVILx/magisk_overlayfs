@@ -1,0 +1,26 @@
+name: Package Magisk OverlayFS Module
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Create Magisk module zip
+        run: |
+          zip -r Magisk_OverlayFS_Module.zip . -x ".github/*" "output/*"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: magisk_overlayfs_module
+          path: Magisk_OverlayFS_Module.zip
